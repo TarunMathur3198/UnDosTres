@@ -10,6 +10,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+
+import frameworkSupportLibraries.CommonFunctions;
 import unDosTresTestScripts.*;
 
 public class UnDosTresAppFunctions extends UnDosTres_Recharge_Verification{
@@ -18,6 +20,8 @@ public class UnDosTresAppFunctions extends UnDosTres_Recharge_Verification{
 	//Method to select option from top menu of Home page
 	public static boolean optionSelection(String strOptionName) throws InterruptedException {
 		boolean expected = false;
+		
+		try {
 		List<WebElement> wb = driver.findElements(By.xpath("//div[@class='col-sm-12 menulist selector ']//a//div//span[@class='menu-text']"));
 
 		for ( WebElement it: wb) { 
@@ -30,12 +34,16 @@ public class UnDosTresAppFunctions extends UnDosTres_Recharge_Verification{
 				break;
 			}
 		}
-
+		}catch(Exception e) {
+			expected = false;
+		}
 		return expected;
 	}
 
 	public static boolean selectOperator(String strOperator) throws InterruptedException {
 		boolean expected = false;
+		
+		try {
 		List<WebElement> wb = driver.findElements(By.xpath("//div[@class='perform']//div[@class='suggestion']//li"));
 
 		for ( WebElement it: wb) { 
@@ -48,7 +56,9 @@ public class UnDosTresAppFunctions extends UnDosTres_Recharge_Verification{
 				break;
 			}
 		}
-
+		}catch(Exception e) {
+			return false;
+		}
 		return expected;
 	}
 
@@ -81,19 +91,30 @@ public class UnDosTresAppFunctions extends UnDosTres_Recharge_Verification{
 	
 	public static boolean selectAmount(String strAmount) throws InterruptedException {
 		boolean expected = false;
+		
 		Actions ac = new Actions(driver);
-
+		try {
 		WebElement wb = driver.findElement(By.xpath("//div[@class='suggestion']//li[@data-name='"+strAmount+"']"));
 		highlightElement(wb);
 
 		((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();",wb);
 		ac.moveToElement(wb).click().build().perform();
+		}catch(Exception e){
+			expected = false;
+		}
 		return expected;
 	}
 	
 	public static boolean enterCardDetails(String strLabel,String strValue) {
 		boolean expected = false;
-		
+		Actions ac = new Actions(driver);
+		try {
+		WebElement we = CommonFunctions.useFluentWait(By.xpath("//input[@placeholder='"+strLabel+"']"));
+		ac.moveToElement(we).sendKeys(strValue).build().perform();
+		expected = true;
+		}catch(Exception e){
+			expected = false;
+		}
 		
 		return expected;
 	}
@@ -101,8 +122,8 @@ public class UnDosTresAppFunctions extends UnDosTres_Recharge_Verification{
 	public static boolean loginPopupEnterValue(String strLabel,String strValue) throws InterruptedException {
 		boolean expected = false;
 		Actions ac = new Actions(driver);
-
-		WebElement wb = driver.findElement(By.xpath("//form[@id='loginForm']//input[@name='"+strLabel+"']"));
+		try {
+		WebElement wb = CommonFunctions.useFluentWait(By.xpath("//form[@id='loginForm']//input[@name='"+strLabel+"']"));
 		ac.click(wb).build().perform();
 		highlightElement(wb);
 		Thread.sleep(1500);
@@ -110,6 +131,10 @@ public class UnDosTresAppFunctions extends UnDosTres_Recharge_Verification{
 		Thread.sleep(2500);
 		wb.sendKeys(Keys.ENTER);
 		expected = true;
+		}
+		catch(Exception e) {
+			expected = false;
+		}
 		
 		return expected;
 	}

@@ -9,6 +9,6 @@ public class ObjectRepository {
 	public static final By cellularAmountColumn = By.xpath("//input[@data-qa='celular-amount']");
 	public static final By Tarjeta = By.xpath("//span[@id='cardGly']");
 	public static final By radioButtonTarjeta = By.xpath("//span[contains(text(),'Usar nueva tarjeta')]");
-
+	public static final By pagarConTarjeta = By.xpath("//div[@id='new-card-button-desktop']//span[contains(text(),'Pagar con Tarjeta')]");
 
 }

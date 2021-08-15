@@ -17,6 +17,7 @@ public class UnDosTres_Recharge_Verification {
 	@Test
 	public static void run_UnDosTres_Recharge_Verification() throws InterruptedException {
 		boolean expected =false;
+		int failCounter = 0;
 		String strTestCaseName = "UnDosTres_Recharge_Verification";
 		String strCurrUrl;
 		/******************** Test Data ****************************/
@@ -30,7 +31,10 @@ public class UnDosTres_Recharge_Verification {
 		String strCVV = "123";
 		String strEmailID = "tset@test.com";
 		String strEmailID2 = "automationexcersise@test.com";
-
+		String strNewCardLabels = "Número de tarjeta,Mes,Año,Correo electrónico,";
+		String strNewCardValues = "4111111111111111,11,25,111";
+		String[] strNewCardLabel = strNewCardLabels.split(",");
+		String[] strNewCardValue = strNewCardValues.split(",");
 		String strPassword = "123456";
 		/*******************************************************/
 		
@@ -93,25 +97,26 @@ public class UnDosTres_Recharge_Verification {
 		Thread.sleep(2000);
 	
 		//Enter new Credit card details
-
-		driver.findElement(By.xpath("//input[@placeholder='Número de tarjeta']")).sendKeys(strCardNum);
-		Thread.sleep(2000);
-
-		driver.findElement(By.xpath("//input[@placeholder='Mes']")).sendKeys(strMonth);
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("//input[@placeholder='Año']")).sendKeys(strDate);
-		Thread.sleep(2000);
-
-		driver.findElement(By.xpath("//input[@placeholder='Correo electrónico']")).sendKeys(strEmailID);
+		failCounter = 0;
+		for(int i=0;i<strNewCardLabel.length;i++) {
+			expected = UnDosTresAppFunctions.enterCardDetails(strNewCardLabel[i], strNewCardValue[i]);
+			if(!expected) {
+				failCounter++;
+			}
+		}
+		if(failCounter>0) {
+			expected = false;
+		}
+		
+		//Click on Pagar Con Tarjeta
+		CommonFunctions.clickElement(ObjectRepository.pagarConTarjeta);
 		Thread.sleep(2000);
 		
-		driver.findElement(By.xpath("//div[@id='new-card-button-desktop']//span[contains(text(),'Pagar con Tarjeta')]")).click();;
-		Thread.sleep(2000);
 		
 		
 		UnDosTresAppFunctions.loginPopupEnterValue("email",strEmailID2);
 		Thread.sleep(2000);
-		UnDosTresAppFunctions.loginPopupEnterValue("email",strPassword);
+		UnDosTresAppFunctions.loginPopupEnterValue("password",strPassword);
 
 
 	
