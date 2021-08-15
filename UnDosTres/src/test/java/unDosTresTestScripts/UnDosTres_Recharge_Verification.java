@@ -63,7 +63,7 @@ public class UnDosTres_Recharge_Verification {
 		
 		
 		//Enter Mobile Number
-		WebElement el = driver.findElement(ObjectRepository.mobileNumColumn);
+		WebElement el = CommonFunctions.findWithFluentWait(ObjectRepository.mobileNumColumn);
 		el.sendKeys(strNumber);
 		System.out.println("Mobile number selected");
 		

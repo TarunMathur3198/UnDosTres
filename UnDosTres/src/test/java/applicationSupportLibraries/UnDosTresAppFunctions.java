@@ -109,7 +109,7 @@ public class UnDosTresAppFunctions extends UnDosTres_Recharge_Verification{
 		boolean expected = false;
 		Actions ac = new Actions(driver);
 		try {
-		WebElement we = CommonFunctions.useFluentWait(By.xpath("//input[@placeholder='"+strLabel+"']"));
+		WebElement we = CommonFunctions.findWithFluentWait(By.xpath("//input[@placeholder='"+strLabel+"']"));
 		ac.moveToElement(we).sendKeys(strValue).build().perform();
 		expected = true;
 		}catch(Exception e){
@@ -123,7 +123,7 @@ public class UnDosTresAppFunctions extends UnDosTres_Recharge_Verification{
 		boolean expected = false;
 		Actions ac = new Actions(driver);
 		try {
-		WebElement wb = CommonFunctions.useFluentWait(By.xpath("//form[@id='loginForm']//input[@name='"+strLabel+"']"));
+		WebElement wb = CommonFunctions.findWithFluentWait(By.xpath("//form[@id='loginForm']//input[@name='"+strLabel+"']"));
 		ac.click(wb).build().perform();
 		highlightElement(wb);
 		Thread.sleep(1500);

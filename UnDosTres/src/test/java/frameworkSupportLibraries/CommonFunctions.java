@@ -15,15 +15,19 @@ public class CommonFunctions extends UnDosTres_Recharge_Verification{
 
 	public static WebElement wb;
 
-	public static void clickElement(final By locator) {
-		WebElement el= driver.findElement(locator);
-		Actions actions = new Actions(driver);
-		actions.moveToElement(el).click().build().perform();
+	public static boolean clickElement(final By locator) {
+		try {
+			WebElement el= findWithFluentWait(locator);
+			Actions actions = new Actions(driver);
+			actions.moveToElement(el).click().build().perform();
+			return true;
+		}catch(Exception e) {
+			return false;
+		}
 	}
 
-	public static WebElement useFluentWait(final By locator) {
+	public static WebElement findWithFluentWait(final By locator) {
 		try {
-			//waitForPageLoaded(driver);
 			Thread.sleep(2000);
 			Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
 					.withTimeout(Duration.ofSeconds(30))
