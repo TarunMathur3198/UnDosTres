@@ -1,13 +1,12 @@
 package frameworkSupportLibraries;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.ObjectInputFilter.Config;
 import java.util.Properties;
 
 public class ConfigDataUtils {
 
+	// Get data from properties file
 	public static String getproperty(String name) throws IOException {
 		String value = "";
 		Properties obj1 = new Properties();

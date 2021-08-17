@@ -23,6 +23,8 @@ public class DriverClass {
 	public String className = null;
 	public String timeStamp = null;
 	public String url;
+	
+	// To be performed before start of test
 	@BeforeTest
 	public void methodPath() {
 		className = this.getClass().getSimpleName();
@@ -30,6 +32,7 @@ public class DriverClass {
 		
 	}
 	Report report = new Report();
+	// To be performed before start of any class
 	@BeforeClass
 	public void setWebDriverInitialization() throws Exception{
 		Properties obj1 = new Properties();
@@ -93,7 +96,7 @@ public class DriverClass {
 		return driver;
 	}
 	
-	
+	// Tear Down
 	@AfterTest
 	public void endReport() throws InterruptedException {
 		driver.quit();

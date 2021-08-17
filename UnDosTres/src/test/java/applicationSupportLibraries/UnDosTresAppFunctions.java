@@ -40,6 +40,7 @@ public class UnDosTresAppFunctions extends UnDosTres_Recharge_Verification{
 		return expected;
 	}
 
+	// Method to select Operator
 	public static boolean selectOperator(String strOperator) throws InterruptedException {
 		boolean expected = false;
 		
@@ -62,12 +63,14 @@ public class UnDosTresAppFunctions extends UnDosTres_Recharge_Verification{
 		return expected;
 	}
 
+	// Method to highlight any web element
 	public static void highlightElement(WebElement el) throws InterruptedException {
 		Thread.sleep(500);
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.border='3px solid green'",el);
 		Thread.sleep(500);
 	}
 
+	// Method to click a button
 	public static boolean clickButton(String strButtonName) throws InterruptedException {
 		boolean expected = false;
 		Actions ac = new Actions(driver);
@@ -88,7 +91,7 @@ public class UnDosTresAppFunctions extends UnDosTres_Recharge_Verification{
 		return expected;
 	}
 	
-	
+	// Select any amount from given dropdown
 	public static boolean selectAmount(String strAmount) throws InterruptedException {
 		boolean expected = false;
 		
@@ -105,20 +108,28 @@ public class UnDosTresAppFunctions extends UnDosTres_Recharge_Verification{
 		return expected;
 	}
 	
+	// Generic method to enter card details
 	public static boolean enterCardDetails(String strLabel,String strValue) {
 		boolean expected = false;
 		Actions ac = new Actions(driver);
 		try {
+		
 		WebElement we = CommonFunctions.findWithFluentWait(By.xpath("//input[@placeholder='"+strLabel+"']"));
-		ac.moveToElement(we).sendKeys(strValue).build().perform();
+		ac.click(we).build().perform();
+		highlightElement(we);
+		Thread.sleep(1500);
+		Thread.sleep(1000);
+		we.sendKeys(strValue);
 		expected = true;
 		}catch(Exception e){
 			expected = false;
+			e.printStackTrace();
 		}
 		
 		return expected;
 	}
 	
+	// Method to enter values in login popup
 	public static boolean loginPopupEnterValue(String strLabel,String strValue) throws InterruptedException {
 		boolean expected = false;
 		Actions ac = new Actions(driver);
